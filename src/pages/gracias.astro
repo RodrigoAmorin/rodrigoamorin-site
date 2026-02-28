@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Features from "../components/widgets/Features.astro";
+import Content from "../components/widgets/Content.astro";
+import Form from "../components/ui/Form.astro";
+
+const metadata = {
+  title: "Mensaje enviado",
+  description: "Gracias por contactarte. Te respondemos a la brevedad.",
+};
+
+const visionText = ["Gracias por contactarte. Te respondemos a la brevedad."];
+---
+
+<BaseLayout {metadata}>
+  <Content tagline="Gracias" title="Mensaje enviado" description={visionText} />
+  
+  </BaseLayout>

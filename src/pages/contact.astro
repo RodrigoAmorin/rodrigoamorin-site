@@ -5,59 +5,59 @@ import Content from "../components/widgets/Content.astro";
 import Form from "../components/ui/Form.astro";
 
 const metadata = {
-  title: "Contact",
-  description: "Get in touch with us to discuss your next project.",
+  title: "Contacto",
+  description: "Póngase en contacto con nosotros para hablar sobre su próximo proyecto.",
 };
 
-const visionText = ["Get in touch with us to discuss your next project."];
+const visionText = ["Póngase en contacto con nosotros para hablar sobre su próximo proyecto."];
 ---
 
 <BaseLayout {metadata}>
-  <Content tagline="Contact" title="Contact" description={visionText} />
+  <Content tagline="Contacto" title="Contacto" description={visionText} />
   <div
     class="reveal mx-auto max-w-xl bg-card border border-border rounded-3xl p-8 shadow-sm mb-12 md:mb-16"
   >
     <Form />
   </div>
   <Features
-    tagline="Contact Means"
-    title="We are here to help you"
-    subtitle="Choose the communication channel you prefer. We respond in less than 24 hours."
+    tagline="Medios de contacto"
+    title="Estamos aquí para ayudarte"
+    subtitle="Elige el canal de comunicación que prefieras. Respondemos en menos de 24 horas hábiles."
     classes={{ container: "pt-0 md:pt-0" }}
     features={[
       {
-        title: "Phone",
-        description: "+123 456 7890",
+        title: "Whatsapp",
+        description: "+54 9 11 4438 3503",
         icon: "lucide:phone",
         iconClass: "bg-green-500/10 text-green-400",
       },
       {
         title: "Email",
-        description: "contact@company.com",
+        description: "info@rodrigoamorin.com",
         icon: "lucide:mail",
         iconClass: "bg-yellow-500/10 text-yellow-400",
       },
       {
-        title: "Location",
-        description: "City, Country",
+        title: "Locación",
+        description: "Ciudad autónoma de Buenos Aires, Argentina",
         icon: "lucide:map-pin",
         iconClass: "bg-red-500/10 text-red-400",
       },
       {
-        title: "Personalized Attention",
-        description: "We understand your needs to offer tailored solutions.",
+        title: "Atención personalizada",
+        description: "Entendemos tus necesidades para ofrecerte soluciones adaptadas.",
         icon: "lucide:user-check",
         iconClass: "bg-blue-500/10 text-blue-400",
       },
       {
-        title: "Technical Support",
-        description: "We resolve any doubt or technical incident quickly.",
+        title: "Soporte Técnico",
+        description: "Resolvemos cualquier duda o incidente técnico de forma rápida.",
         icon: "lucide:wrench",
         iconClass: "bg-purple-500/10 text-purple-400",
       },
       {
-        title: "Strategic Consulting",
-        description: "We advise you to ensure the success of your project.",
+        title: "Consultoría estratégica",
+        description: "Te asesoramos para garantizar el éxito de tu proyecto.",
         icon: "lucide:briefcase",
         iconClass: "bg-pink-500/10 text-pink-400",
       },
