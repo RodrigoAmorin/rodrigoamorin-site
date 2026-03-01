@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Features from "../components/widgets/Features.astro";
 import Content from "../components/widgets/Content.astro";
-import Form from "../components/ui/Form.astro";
+import Hero from "../components/widgets/Hero.astro";
 
 const metadata = {
   title: "Mensaje enviado",
@@ -10,9 +10,31 @@ const metadata = {
 };
 
 const visionText = ["Gracias por contactarte. Te respondemos a la brevedad."];
+const heroProps = {
+  title: "Mensaje enviado",
+  tagline: "Muchas Gracias",
+  description:
+    "En menos de 24 horas te escribo personalmente. Mientras tanto, te invito a explorar el sitio y descubrir cómo puedo ayudarte a llevar tu proyecto al siguiente nivel.",
+  actions: [
+    {
+      text: "Volver al inicio",
+      href: "/",
+      variant: "primary",
+      icon: "lucide:home",
+    },
+    {
+      text: "Ver blog",
+      href: "/blog  ",
+      variant: "secondary",
+      icon: "lucide:arrow-right",
+    },
+  ],
+};
+
 ---
 
 <BaseLayout {metadata}>
-  <Content tagline="Gracias" title="Mensaje enviado" description={visionText} />
+  
+  <Hero {...heroProps} />
   
   </BaseLayout>
