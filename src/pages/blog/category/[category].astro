@@ -5,32 +5,40 @@ import Headline from "../../../components/ui/Headline.astro";
 import PostItem from "../../../components/blog/PostItem.astro";
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection("blog");
-  const posts = allPosts.filter((post) => post.data && post.data.pubDate); // Ensure published
+  const slugify = (str: string) =>
+    str
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
 
-  const categories = new Set();
+  const allPosts = await getCollection("blog");
+  const posts = allPosts.filter((post) => post.data && post.data.pubDate);
+
+  // slug -> nombre original (para mostrarlo lindo)
+  const categories = new Map<string, string>();
+
   posts.forEach((post) => {
     if (post.data.category) {
-      categories.add(post.data.category);
+      categories.set(slugify(post.data.category), post.data.category);
     }
   });
 
-  return Array.from(categories).map((category) => {
-    return {
-      params: { category: category as string },
-      props: {
-        category,
-        posts: posts.filter((post) => post.data.category === category),
-      },
-    };
-  });
+  return Array.from(categories.entries()).map(([categorySlug, categoryName]) => ({
+    params: { category: categorySlug },
+    props: {
+      category: categoryName,
+      posts: posts.filter((post) => post.data.category === categoryName),
+    },
+  }));
 }
 
 const { category, posts } = Astro.props;
 
 const metadata = {
-  title: `Category: ${category}`,
-  description: `Articles in the ${category} category.`,
+  title: `Categoría: ${category} | Blog`,
+  description: `Artículos en la categoría ${category}.`,
 };
 ---
 
@@ -38,9 +46,9 @@ const metadata = {
   <section class="relative px-4 py-24 sm:px-6 lg:px-8 md:py-32">
     <div class="relative mx-auto max-w-5xl">
       <Headline
-        tagline="Category"
+        tagline="Categoría"
         title={category}
-        subtitle={`Showing ${posts.length} article${posts.length === 1 ? "" : "s"}.`}
+        subtitle={`${posts.length} ${posts.length === 1 ? "artículo" : "artículos"}.`}
         classes={{
           container: "mb-12 text-center",
           title:
@@ -50,15 +58,13 @@ const metadata = {
       />
 
       <div class="mb-8 text-center">
-        <a href="/blog" class="text-primary hover:underline">← Back to blog</a>
+        <a href="/blog" class="text-primary hover:underline">← Volver al blog</a>
       </div>
 
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {
-          posts
-            .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-            .map((post) => <PostItem post={post} />)
-        }
+        {posts
+          .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+          .map((post) => <PostItem post={post} />)}
       </div>
     </div>
   </section>

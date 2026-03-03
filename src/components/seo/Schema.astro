@@ -37,7 +37,7 @@ if (type === "WebSite") {
     headline: data.title,
     description: data.description,
     image: data.image,
-    datePublished: data.pubDate,
+    datePublished: data.pubDate?.toISOString(),
     author: {
       "@type": "Person",
       name: data.author,

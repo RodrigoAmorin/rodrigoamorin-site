@@ -5,6 +5,13 @@ export interface Props {
 }
 
 const { tags, class: className = "text-sm" } = Astro.props;
+const slugify = (str: string) =>
+  str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 ---
 
 {
@@ -13,10 +20,10 @@ const { tags, class: className = "text-sm" } = Astro.props;
       {tags.map((tag) => (
         <li class="inline-block relative">
           <a
-            href={`/blog/tags/${tag}`}
+            href={`/blog/tags/${slugify(tag)}`}
             class="inline-block bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground px-3 py-1 rounded-full border border-border transition-colors duration-200"
           >
-            #{tag}
+            {tag}
           </a>
         </li>
       ))}

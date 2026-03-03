@@ -3,7 +3,7 @@ import ogImage from "../assets/og-image.png";
 export const siteConfig = {
   name: "Rodrigo Amorín",
   description:
-    "Diseñador multimedia especializado en comunicación estratégica, motion graphics y soluciones digitales.",
+    "Ayudamos a marcas e instituciones a ordenar su comunicación y proyectarse con una imagen sólida en entornos digitales, integrando creatividad, análisis y tecnología en cada sistema que desarrollamos.",
   url: "https://rodrigoamorin.com",
   lang: "es",
   locale: "es_AR",
@@ -17,7 +17,7 @@ export const siteConfig = {
   },
   navLinks: [
     { text: "Home", href: "/" },
-    { text: "Sobre mí", href: "/sobre-mi" },
+    { text: "Nosotros", href: "/nosotros" },
     { text: "Servicios", href: "/servicios" },
     { text: "Blog", href: "/blog" },
     { text: "Contacto", href: "/contacto" },

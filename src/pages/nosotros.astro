@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getImage } from "astro:assets";
+import Content2 from "../components/widgets/Content2.astro";
+import Values from "../components/widgets/Values.astro";
+import aboutImage from "../assets/images/about-office.webp";
+
+const metadata = {
+  title: "Nosotros | Estudio de comunicación multimedial",
+  description:
+    "Conocé nuestra visión, valores y forma de trabajo como estudio de comunicación multimedial enfocado en diseño, estrategia y desarrollo digital.",
+};
+
+const values = [
+  {
+    title: "Responsabilidad",
+    description:
+      "Si asumimos la comunicación de una empresa, nos involucramos como parte del equipo.",
+  },
+  {
+    title: "Claridad",
+    description:
+      "Traducimos la comunicación en decisiones concretas. Sin vueltas ni complejidad innecesaria.",
+  },
+  {
+    title: "Acompañamiento",
+    description:
+      "No entregamos piezas y desaparecemos. Sostenemos el proceso en el tiempo.",
+  },
+  {
+    title: "Cercanía humana",
+    description:
+      "La comunicación empieza en el trato. Escuchar y generar confianza es parte del trabajo.",
+  },
+  {
+    title: "Detalle",
+    description:
+      "La confianza se construye en lo pequeño: tiempos, seguimiento y consistencia.",
+  },
+  {
+    title: "Comunicación interna",
+    description:
+      "Una comunicación sólida hacia afuera comienza con procesos claros hacia adentro.",
+  },
+];
+
+const optimizedImage = await getImage({
+  src: aboutImage,
+  format: "webp",
+});
+---
+
+<BaseLayout {metadata}>
+  <link slot="head" rel="preload" href={optimizedImage.src} as="image" />
+  <Content2
+    title="Nuestra Visión"
+    description={[
+      "Entendemos la comunicación como un sistema que debe pensarse, diseñarse y sostenerse en el tiempo. Trabajamos junto a empresas y profesionales que necesitan ordenar su comunicación, fortalecer su presencia digital y crecer con una estructura clara y consistente.",
+      "Nos integramos a cada proyecto como parte del equipo, aportando dirección, criterio y continuidad en cada etapa del proceso.",
+    ]}
+    tagline="Sobre Nosotros"
+    image={aboutImage}
+    imageAlt="Oficina de estudio de comunicación multimedial"
+    actions={[
+      {
+        text: "Contactanos",
+        href: "/contacto",
+        variant: "primary",
+        icon: "lucide:mail",
+      },
+   
+    ]}
+  />
+  <Values
+    items={values}
+    columns={3}
+    tagline="Nuestros Valores"
+    title="Lo que nos define"
+    subtitle="Principios que orientan nuestra forma de trabajar y relacionarnos."
+  />
+</BaseLayout>
