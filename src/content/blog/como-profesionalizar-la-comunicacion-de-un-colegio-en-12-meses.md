@@ -3,7 +3,7 @@ title: "Cómo profesionalizar la comunicación de un colegio en 12 meses"
 pubDate: "2026-03-02"
 description: "Guía estratégica para ordenar la comunicación institucional de un colegio en un año, con procesos claros, identidad coherente y planificación real."
 author: "Rodrigo Amorín"
-category: "Educación y colegios"
+category: "Plan de comunicación"
 tags: ["Marketing educativo", "Procesos", "Estrategia", "Comunicación interna"]
 image: "/blog/blog_post_1_1768848683359.webp"
 ---

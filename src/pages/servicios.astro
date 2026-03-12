@@ -3,126 +3,194 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ServiceList from "../components/widgets/ServiceList.astro";
 import Content from "../components/widgets/Content.astro";
 import Content2 from "../components/widgets/Content2.astro";
-import webDevImg from "../assets/images/services/web-dev.webp";
+import webDevImg from "../assets/images/services/web-dev.webp"; 
 import seoImg from "../assets/images/services/seo.webp";
 import consultingImg from "../assets/images/services/consulting.webp";
 
+import planComImg from "../assets/images/services/plan-de-comunicacion.webp";
+import produccionImg from "../assets/images/services/Diseno-multimedia.webp";
+import iaImg from "../assets/images/services/automatizacion-ia.webp";
+
+
 const services = [
   {
-    title: "Web Development",
-    description: "Static and dynamic sites built for the modern era.",
-    icon: "lucide:globe",
+    title: "Plan de comunicación",
+    description:
+      "Armamos un plan claro para que la comunicación no dependa de una sola persona y el equipo pueda sostenerla.",
+    icon: "lucide:clipboard-list",
+    href: "#plan-de-comunicacion",
   },
   {
-    title: "SEO Optimization",
-    description: "We ensure your content is found by those looking for it.",
-    icon: "lucide:search",
+    title: "Producción multimedia",
+    description:
+      "Diseño, video y motion para campañas, institucional, redes y streaming. Piezas listas para publicar y reutilizar.",
+    icon: "lucide:film",
+    href: "#produccion-multimedia",
   },
   {
-    title: "IT Consulting",
-    description: "Technical advice to scale your projects to the next level.",
-    icon: "lucide:rocket",
+    title: "Automatización e IA",
+    description:
+      "Automatizamos tareas repetitivas y ordenamos flujos internos: menos caos, menos errores, más tiempo para lo importante.",
+    icon: "lucide:zap",
+    href: "#automatizacion-ia",
   },
 ];
+
 const metadata = {
-  title: "Services",
+  title: "Servicios | Comunicación, multimedia y automatización",
   description:
-    "Discover our web development, SEO optimization, and technology consulting services.",
+    "Planes de comunicación, producción multimedia y automatización con IA para empresas e instituciones. Soluciones claras, aplicables y sostenibles.",
 };
 ---
 
 <BaseLayout {metadata}>
+  <!-- HERO -->
   <Content
-    tagline="Services"
-    title="Our Services"
+    tagline="Servicios"
+    title="Nuestros servicios"
     description={[
-      "Comprehensive solutions designed to maximize the potential of your digital presence.",
-    ]}
-  />
-  <ServiceList services={services} classes={{ container: "pt-0 md:pt-0" }} />
-  <Content
-    tagline="Web Development"
-    title="Modern Web Development"
-    description={[
-      "We specialize in building fast, secure, and scalable websites using the latest technologies. We transform your vision into an impactful digital experience.",
+      "Soluciones pensadas para empresas e instituciones que necesitan comunicar mejor, producir contenido de forma consistente y ordenar procesos con tecnología.",
     ]}
     classes={{ container: "pb-0 md:pb-0" }}
   />
+
+  <!-- CARDS -->
+  <ServiceList services={services} classes={{ container: "pt-6 md:pt-6" }} />
+
+  <!-- SERVICIO 1 -->
+  <Content
+    id="plan-de-comunicacion"
+    tagline="Estrategia y organización"
+    title="Plan de comunicación"
+    description={[
+      "Cuando todo pasa por una sola persona, la comunicación se vuelve irregular, reactiva y difícil de sostener.",
+      "Acá el objetivo es simple: definir qué se comunica, para quién, por dónde y con qué prioridades. Y dejarlo funcionando con un método que el equipo pueda seguir.",
+    ]}
+    classes={{ container: "pb-0 md:pb-0" }}
+  />
+
   <Content2
     items={[
       {
-        title: "Responsive Design",
+        title: "Prioridades y calendario",
         description:
-          "Your site will look perfect on any device, from mobiles to desktop screens.",
+          "Definimos focos por mes y armamos una hoja de ruta realista para que no se improvisen temas todas las semanas.",
       },
       {
-        title: "Optimized Performance",
+        title: "Mensajes y tono",
         description:
-          "Fast loading to improve user experience and SEO positioning.",
+          "Alineamos lo que se quiere decir con cómo se dice: mensajes clave, criterios de estilo y coherencia entre áreas.",
+      },
+      {
+        title: "Organización del equipo",
+        description:
+          "Roles, responsables y un tablero simple para que el seguimiento no dependa de la memoria de alguien.",
       },
     ]}
-    image={webDevImg}
-    imageAlt="Modern Web Development"
+    image={planComImg}
+    imageAlt="Plan de comunicación"
     classes={{ container: "pt-0 md:pt-0" }}
   >
-    <Fragment>
+    <div>
       <h3 class="text-2xl font-bold tracking-tight sm:text-3xl mb-2">
-        Modern Web Development
+        Comunicación bien ordenada
       </h3>
-      We specialize in building fast, secure, and scalable websites using the latest
-      technologies. We transform your vision into an impactful digital experience.
-    </Fragment>
+      <p class="text-muted-foreground">
+        Desarrollamos un plan claro para organizar la comunicación de tu empresa o institución:
+prioridades, canales, mensajes y responsables. El objetivo es que la comunicación tenga dirección
+y continuidad, sin depender de decisiones improvisadas.
+      </p>
+    </div>
   </Content2>
+
+  <!-- SERVICIO 2 -->
+  <Content
+    id="produccion-multimedia"
+    tagline="Diseño, video y motion"
+    title="Producción multimedia"
+    description={[
+      "Diseño, video y motion para comunicar con claridad en cualquier canal: redes, campañas, institucional, streaming o eventos.",
+      "La clave es producir con criterio y con formatos reutilizables, para que no sea todo “una pieza nueva desde cero” cada vez.",
+    ]}
+    classes={{ container: "pb-0 md:pb-0" }}
+  />
 
   <Content2
     isReversed={true}
     items={[
       {
-        title: "SEO Audit",
+        title: "Diseño gráfico y piezas de campaña",
         description:
-          "We deeply analyze your website to identify technical and content improvement opportunities.",
+          "Placas, banners, carruseles, adaptaciones por formato y material para pauta o difusión interna.",
       },
       {
-        title: "Content Strategy",
+        title: "Video y motion",
         description:
-          "We create relevant content plans that attract and retain your target audience.",
+          "Reels, institucionales, animaciones, zócalos y packs para comunicación en vivo (streaming).",
+      },
+      {
+        title: "Sistema de formatos",
+        description:
+          "Armamos plantillas y criterios para que la comunicación se vea coherente aunque la produzcan varias personas.",
       },
     ]}
-    image={seoImg}
-    imageAlt="SEO Strategies"
+    image={produccionImg}
+    imageAlt="Producción multimedia"
   >
-    <Fragment>
+    <div>
       <h3 class="text-2xl font-bold tracking-tight sm:text-3xl mb-2">
-        SEO Optimization
+       Producción audiovisual y gráfica
       </h3>
-      We help your business get found by the right people. Our organic positioning
-      strategies are designed to improve your organic visibility.
-    </Fragment>
+      <p class="text-muted-foreground">
+        Diseño gráfico, video, motion y piezas digitales para campañas,
+comunicación institucional, redes, eventos o streaming.
+Cada proyecto se desarrolla con estructura, guion y criterios visuales definidos.
+      </p>
+    </div>
   </Content2>
+
+  <!-- SERVICIO 3 -->
+  <Content
+    id="automatizacion-ia"
+    tagline="Procesos, IA y sistemas digitales"
+    title="Automatización e Inteligencia Artificial"
+    description={[
+      "Automatizamos tareas repetitivas y ordenamos procesos internos para ahorrar tiempo y reducir errores.",
+      "Se aplica según cada caso: consultas, formularios, seguimiento, contenidos, documentación y flujos de trabajo.",
+    ]}
+    classes={{ container: "pb-0 md:pb-0" }}
+  />
 
   <Content2
     items={[
       {
-        title: "Digital Transformation",
+        title: "Formularios y flujos",
         description:
-          "We guide you in adopting new technologies to optimize your business processes.",
+          "Estandarizamos ingresos de datos y los llevamos a un sistema usable (Sheets/Drive/Notion/Trello).",
       },
       {
-        title: "Software Architecture",
+        title: "Seguimientos automáticos",
         description:
-          "We design robust and scalable systems prepared for future growth.",
+          "Recordatorios, respuestas, derivaciones y alertas para que los procesos no dependan de perseguir gente.",
+      },
+      {
+        title: "IA para acelerar trabajo",
+        description:
+          "Asistencia para redacción, clasificación, borradores y organización de información, cuidando el tono institucional.",
       },
     ]}
-    image={consultingImg}
-    imageAlt="Technology Consulting"
+    image={iaImg}
+    imageAlt="Automatización e IA"
   >
-    <Fragment>
+    <div>
       <h3 class="text-2xl font-bold tracking-tight sm:text-3xl mb-2">
-        Technology Consulting
+        Optimización de procesos y flujos de trabajo
       </h3>
-      We accompany you in critical decision-making. We evaluate your current infrastructure
-      and design personalized roadmaps to take your company to the next technological
-      level.
-    </Fragment>
+      <p class="text-muted-foreground">
+        Implementamos automatizaciones y herramientas de inteligencia artificial
+para ordenar procesos internos, optimizar tiempos y reducir tareas repetitivas.
+Las soluciones se adaptan a la estructura y necesidades de cada organización.
+      </p>
+    </div>
   </Content2>
 </BaseLayout>

@@ -1,0 +1,498 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/widgets/Hero.astro";
+import Content2 from "../components/widgets/Content2.astro";
+import Features from "../components/widgets/Features.astro";
+import Headline from "../components/ui/Headline.astro";
+import Button from "../components/ui/Button.astro";
+import Card from "../components/ui/Card.astro";
+import PostItem from "../components/blog/PostItem.astro";
+import Schema from "../components/seo/Schema.astro";
+
+import { getCollection } from "astro:content";
+
+// Ajustá estas rutas si querés usar otras imágenes
+import produccionMainImage from "../assets/images/work/work2.webp";
+import produccionSystemImage from "../assets/images/work/work3.webp";
+
+const allPosts = await getCollection("blog");
+
+const relatedPosts = allPosts
+  .filter(
+    (post) =>
+      post.data &&
+      post.data.pubDate &&
+      post.data.category === "Producción audiovisual"
+  )
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const metadata = {
+  title: "Producción audiovisual",
+  description:
+    "Producción audiovisual para empresas, instituciones y marcas que necesitan comunicar con claridad, consistencia y criterio. Videos, motion graphics, piezas visuales y sistemas reutilizables.",
+  ignoreTitleTemplate: false,
+};
+
+const alcanceItems = [
+  {
+    title: "Video y edición",
+    description:
+      "Videos institucionales, reels, piezas cortas, contenido para campañas, eventos o difusión interna.",
+    icon: "tabler:video",
+  },
+  {
+    title: "Motion graphics",
+    description:
+      "Animaciones, zócalos, aperturas, piezas explicativas y recursos visuales para comunicación digital.",
+    icon: "tabler:movie",
+  },
+  {
+    title: "Diseño visual aplicado",
+    description:
+      "Placas, banners, piezas de campaña y adaptaciones para distintos formatos y canales.",
+    icon: "tabler:palette",
+  },
+  {
+    title: "Sistemas reutilizables",
+    description:
+      "Plantillas, criterios visuales y packs que ayudan a producir mejor sin empezar siempre desde cero.",
+    icon: "tabler:stack-2",
+  },
+];
+
+const examples = [
+  {
+    title: "Video institucional o corporativo",
+    description:
+      "Para presentar una empresa, un área, una propuesta o un evento con una narrativa clara y una estética profesional.",
+    tags: ["Video", "Institucional"],
+  },
+  {
+    title: "Sistema visual para campañas",
+    description:
+      "Piezas coordinadas para redes, difusión interna, eventos o acciones promocionales manteniendo coherencia visual.",
+    tags: ["Campañas", "Sistema visual"],
+  },
+  {
+    title: "Contenido audiovisual para redes",
+    description:
+      "Reels, videos cortos y piezas animadas pensadas para sostener comunicación con más consistencia.",
+    tags: ["Redes", "Motion"],
+  },
+];
+
+const process = [
+  {
+    step: "01",
+    title: "Entender el caso",
+    description:
+      "Revisamos qué se quiere comunicar, a quién, en qué contexto y con qué nivel de continuidad.",
+  },
+  {
+    step: "02",
+    title: "Definir formato y enfoque",
+    description:
+      "Ordenamos qué tipo de pieza conviene, qué tono debería tener y cómo se estructura visualmente.",
+  },
+  {
+    step: "03",
+    title: "Producir con criterio",
+    description:
+      "Desarrollamos la pieza o sistema de piezas cuidando tanto lo visual como la función comunicacional.",
+  },
+  {
+    step: "04",
+    title: "Adaptar y sostener",
+    description:
+      "Cuando hace falta, generamos variantes, formatos reutilizables o una base más consistente para el equipo.",
+  },
+];
+
+const faqs = [
+  {
+    question: "¿Trabajás solo videos o también otras piezas visuales?",
+    answer:
+      "La producción audiovisual puede incluir video, motion graphics, piezas gráficas digitales, adaptaciones por formato, recursos para campañas y sistemas visuales reutilizables.",
+  },
+  {
+    question: "¿Sirve si todavía no tenemos una idea completamente definida?",
+    answer:
+      "Sí. Muchas veces el trabajo empieza justamente ahí: ordenar qué se quiere comunicar, en qué formato conviene hacerlo y cómo bajarlo a una pieza clara y útil.",
+  },
+  {
+    question: "¿Podés trabajar con equipos internos o agencias?",
+    answer:
+      "Sí. El servicio puede funcionar tanto de forma directa con una empresa o institución como en colaboración con equipos de comunicación, marketing, diseño o agencias externas.",
+  },
+  {
+    question: "¿Se pueden hacer varias piezas a partir de una misma base?",
+    answer:
+      "Sí. De hecho, es una de las formas más eficientes de trabajar. Una misma idea puede derivar en múltiples formatos: reels, placas, adaptaciones para campaña o piezas institucionales.",
+  },
+  {
+    question: "¿Esto sirve solo para redes sociales?",
+    answer:
+      "No. También puede aplicarse a comunicación institucional, presentaciones, campañas, eventos, streaming, materiales educativos o difusión interna.",
+  },
+];
+---
+
+<BaseLayout metadata={metadata}>
+
+  <Hero
+    id="hero-produccion-audiovisual"
+    tagline="Servicio"
+    title="Producción audiovisual para comunicar con claridad, consistencia y criterio"
+    description="Diseño, video, motion y piezas visuales para empresas, instituciones y marcas que necesitan dejar de improvisar contenido y empezar a comunicar mejor."
+    actions={[
+      {
+        text: "Quiero conversar este servicio",
+        href: "#consulta-produccion",
+        variant: "primary",
+        icon: "tabler:message-circle",
+        ariaLabel: "Ir al formulario de consulta",
+      },
+      {
+        text: "Ver alcance del servicio",
+        href: "#alcance-produccion",
+        variant: "secondary",
+        icon: "tabler:arrow-down",
+        ariaLabel: "Ir al alcance del servicio",
+      },
+    ]}
+  >
+    <div class="mt-10 grid gap-4 sm:grid-cols-3">
+      <div class="rounded-2xl border border-border bg-card/70 p-4 text-left">
+        <p class="text-sm font-semibold text-foreground">Claridad</p>
+        <p class="mt-1 text-sm text-muted-foreground">
+          Definimos mejor qué comunicar y cómo hacerlo.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-border bg-card/70 p-4 text-left">
+        <p class="text-sm font-semibold text-foreground">Consistencia</p>
+        <p class="mt-1 text-sm text-muted-foreground">
+          Evitamos piezas aisladas y decisiones improvisadas.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-border bg-card/70 p-4 text-left">
+        <p class="text-sm font-semibold text-foreground">Reutilización</p>
+        <p class="mt-1 text-sm text-muted-foreground">
+          Pensamos formatos que se puedan sostener en el tiempo.
+        </p>
+      </div>
+    </div>
+  </Hero>
+
+  <Content2
+    id="problema-produccion"
+    tagline="Qué problema resuelve"
+    title="Cuando comunicar depende de la urgencia, todo se vuelve más difícil"
+    subtitle="Este servicio ordena la producción para que las piezas no se resuelvan como casos aislados, sino como parte de una comunicación más clara y profesional."
+    image={produccionMainImage}
+    imageAlt="Producción audiovisual y piezas visuales"
+    items={[
+      {
+        title: "Coherencia visual",
+        description:
+          "Las piezas dejan de salir cada una por su lado y empiezan a responder a una lógica más clara.",
+        icon: "tabler:layout-grid",
+      },
+      {
+        title: "Mejor criterio",
+        description:
+          "No todo se resuelve con el mismo formato. Elegimos qué conviene hacer y por qué.",
+        icon: "tabler:adjustments-horizontal",
+      },
+      {
+        title: "Menos improvisación",
+        description:
+          "Se reduce la dependencia de urgencias, intuiciones aisladas o decisiones de último momento.",
+        icon: "tabler:clock-bolt",
+      },
+    ]}
+  >
+    <div class="space-y-4 text-muted-foreground">
+      <p>
+        Muchas empresas e instituciones sí producen contenido, pero lo hacen sin
+        una lógica clara: cada pieza se resuelve distinto, cuesta sostener
+        calidad, los formatos no dialogan entre sí y gran parte de la
+        comunicación termina dependiendo de una sola persona o de decisiones de
+        último momento.
+      </p>
+      <p>
+        La producción audiovisual no es solo “hacer un video” o “diseñar una
+        placa”. Es traducir una necesidad en piezas concretas que tengan
+        intención, estructura visual y una función clara dentro de la
+        comunicación general.
+      </p>
+    </div>
+  </Content2>
+
+  <Features
+    id="alcance-produccion"
+    tagline="Alcance del servicio"
+    title="Qué incluye la producción audiovisual"
+    subtitle="No como una lista caótica de tareas, sino como un sistema de piezas y decisiones visuales que pueden resolver distintas necesidades concretas."
+    features={alcanceItems}
+    classes={{
+      container: "max-w-7xl mx-auto",
+    }}
+  />
+
+  <Content2
+    id="beneficios-produccion"
+    tagline="Qué cambia cuando está bien hecho"
+    title="Más claridad, menos improvisación"
+    subtitle="El objetivo no es solo producir más, sino producir mejor y con una base que se pueda sostener en el tiempo."
+    image={produccionSystemImage}
+    imageAlt="Sistema audiovisual reutilizable"
+    isReversed={true}
+    items={[
+      {
+        title: "Mejor percepción",
+        description:
+          "La marca o institución se ve más ordenada, clara y profesional.",
+        icon: "tabler:eye",
+      },
+      {
+        title: "Más aprovechamiento",
+        description:
+          "Una misma base puede derivar en múltiples formatos sin volver a empezar de cero.",
+        icon: "tabler:refresh",
+      },
+      {
+        title: "Más continuidad",
+        description:
+          "El equipo puede sostener la producción con más consistencia.",
+        icon: "tabler:route",
+      },
+    ]}
+  >
+    <div class="space-y-4 text-muted-foreground">
+      <p>
+        Una pieza puede verse bien y aun así no resolver el problema de fondo.
+        Por eso el enfoque no parte solo del diseño o la edición, sino de
+        entender qué rol cumple cada recurso dentro de la comunicación.
+      </p>
+      <p>
+        Cuando esto está bien pensado, el contenido deja de quedar suelto y pasa
+        a formar parte de un sistema más ordenado, reutilizable y coherente con
+        la identidad general.
+      </p>
+    </div>
+  </Content2>
+
+  <section id="ejemplos-produccion" class="relative px-4 py-16 sm:px-6 lg:px-8 md:py-20">
+    <div class="mx-auto max-w-7xl">
+      <Headline
+        tagline="Ejemplos de aplicación"
+        title="Qué tipo de proyectos puede resolver este servicio"
+        subtitle="No hace falta que todos los casos se parezcan entre sí. Lo importante es entender qué necesidad se resuelve y cómo se baja a piezas concretas."
+        classes={{
+          container: "mb-12 text-center max-w-3xl mx-auto",
+        }}
+      />
+
+      <div class="grid gap-8 md:grid-cols-3">
+        {examples.map((item) => (
+          <Card>
+            <h3 class="text-xl font-bold text-foreground mb-3">{item.title}</h3>
+            <p class="text-muted-foreground text-sm mb-5">{item.description}</p>
+            <div class="flex flex-wrap gap-2">
+              {item.tags.map((tag) => (
+                <span class="rounded-full border border-border bg-muted/40 px-3 py-1 text-xs text-muted-foreground">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="relative px-4 py-16 sm:px-6 lg:px-8 md:py-20">
+    <div class="mx-auto max-w-7xl">
+      <Headline
+        tagline="Cómo trabajamos"
+        title="Un proceso simple, pero con criterio"
+        subtitle="La idea no es agregar complejidad, sino ordenar decisiones para que cada pieza tenga sentido y se pueda sostener mejor."
+        classes={{
+          container: "mb-12 text-center max-w-3xl mx-auto",
+        }}
+      />
+
+      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {process.map((item) => (
+          <Card>
+            <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-sm font-bold text-primary">
+              {item.step}
+            </div>
+            <h3 class="text-lg font-bold text-foreground mb-3">{item.title}</h3>
+            <p class="text-sm text-muted-foreground">{item.description}</p>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="relative px-4 py-16 sm:px-6 lg:px-8 md:py-20">
+    <div class="mx-auto max-w-7xl grid gap-8 lg:grid-cols-2">
+      <Card>
+        <p class="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+          A quién le sirve
+        </p>
+        <h2 class="font-heading mt-3 text-3xl font-bold tracking-tight text-foreground">
+          Empresas, instituciones y equipos que necesitan producir mejor
+        </h2>
+
+        <ul class="mt-6 space-y-4 text-sm text-muted-foreground">
+          <li>Empresas que quieren comunicar con más claridad y mejor presencia visual.</li>
+          <li>Instituciones educativas o culturales que necesitan sostener piezas de difusión o contenido institucional.</li>
+          <li>Equipos de marketing o comunicación que necesitan soporte audiovisual y visual con criterio.</li>
+          <li>Profesionales u organizaciones que quieren salir de la improvisación y ordenar cómo producen sus materiales.</li>
+        </ul>
+      </Card>
+
+      <Card>
+        <p class="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+          Lo que normalmente conviene aclarar
+        </p>
+        <h2 class="font-heading mt-3 text-3xl font-bold tracking-tight text-foreground">
+          Preguntas frecuentes
+        </h2>
+
+        <div class="mt-6 space-y-4">
+          {faqs.map((item) => (
+            <details class="group rounded-2xl border border-border bg-background/40 p-5">
+              <summary class="cursor-pointer list-none font-semibold text-foreground">
+                {item.question}
+              </summary>
+              <p class="mt-3 text-sm leading-relaxed text-muted-foreground">
+                {item.answer}
+              </p>
+            </details>
+          ))}
+        </div>
+      </Card>
+    </div>
+  </section>
+
+  {relatedPosts.length > 0 && (
+    <section class="relative px-4 py-16 sm:px-6 lg:px-8 md:py-20">
+      <div class="mx-auto max-w-7xl">
+        <Headline
+          tagline="Recursos relacionados"
+          title="Artículos para profundizar este servicio"
+          subtitle="Si querés entender mejor cómo pensar estas piezas, estos artículos responden preguntas frecuentes y ayudan a profundizar decisiones."
+          classes={{
+            container: "mb-12 text-center max-w-3xl mx-auto",
+          }}
+        />
+
+        <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+          {relatedPosts.slice(0, 6).map((post) => (
+            <PostItem post={post} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section id="consulta-produccion" class="relative px-4 py-16 sm:px-6 lg:px-8 md:py-20">
+    <div class="mx-auto max-w-6xl">
+      <div class="grid gap-8 lg:grid-cols-[1fr_0.95fr] rounded-3xl border border-border bg-card p-8 md:p-10">
+        <div>
+          <p class="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+            Siguiente paso
+          </p>
+          <h2 class="font-heading mt-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+            ¿Querés ver si este servicio aplica para tu caso?
+          </h2>
+          <p class="mt-4 max-w-2xl text-muted-foreground">
+            Contame brevemente qué están necesitando y te digo si conviene resolverlo
+            con una pieza puntual, un sistema de producción más sostenido o una
+            combinación de formatos.
+          </p>
+
+          <div class="mt-6 space-y-3 text-sm text-muted-foreground">
+            <p>• Bajamos la necesidad a un enfoque claro y realista.</p>
+            <p>• Detectamos prioridades y posibles formatos.</p>
+            <p>• Sin vueltas innecesarias ni humo.</p>
+          </div>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <Button href="/contacto" variant="secondary">
+              Ir a contacto
+            </Button>
+            <Button href="/blog/category/produccion-audiovisual" variant="tertiary">
+              Ver más recursos
+            </Button>
+          </div>
+        </div>
+
+        <form class="space-y-4 rounded-2xl border border-border bg-background/40 p-6">
+          <div>
+            <label for="nombre" class="mb-2 block text-sm font-medium text-foreground">
+              Nombre
+            </label>
+            <input
+              id="nombre"
+              name="nombre"
+              type="text"
+              placeholder="Tu nombre"
+              class="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground outline-none transition-colors duration-200 placeholder:text-muted-foreground focus:border-primary"
+            />
+          </div>
+
+          <div>
+            <label for="empresa" class="mb-2 block text-sm font-medium text-foreground">
+              Empresa / institución
+            </label>
+            <input
+              id="empresa"
+              name="empresa"
+              type="text"
+              placeholder="Nombre de la empresa o institución"
+              class="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground outline-none transition-colors duration-200 placeholder:text-muted-foreground focus:border-primary"
+            />
+          </div>
+
+          <div>
+            <label for="email" class="mb-2 block text-sm font-medium text-foreground">
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="tu@email.com"
+              class="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground outline-none transition-colors duration-200 placeholder:text-muted-foreground focus:border-primary"
+            />
+          </div>
+
+          <div>
+            <label for="mensaje" class="mb-2 block text-sm font-medium text-foreground">
+              ¿Qué necesitan resolver?
+            </label>
+            <textarea
+              id="mensaje"
+              name="mensaje"
+              rows="5"
+              placeholder="Contame brevemente qué están necesitando, qué les está trabando hoy o qué tipo de piezas quieren producir."
+              class="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground outline-none transition-colors duration-200 placeholder:text-muted-foreground focus:border-primary"
+            ></textarea>
+          </div>
+
+          <Button type="submit" class="w-full">
+            Enviar consulta
+          </Button>
+
+          <p class="text-xs text-muted-foreground">
+            Después podemos integrar esto con Formspree, Netlify Forms, Make o el sistema que prefieras.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

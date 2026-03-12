@@ -1,0 +1,127 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Headline from "../components/ui/Headline.astro";
+import PostItem from "../components/blog/PostItem.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog");
+
+const relatedPosts = allPosts
+  .filter(
+    (post) =>
+      post.data &&
+      post.data.pubDate &&
+      post.data.category === "Plan de comunicación"
+  )
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const metadata = {
+  title: "Plan de comunicación",
+  description:
+    "Plan de comunicación para ordenar mensajes, prioridades, canales y acciones. Un enfoque pensado para marcas, instituciones y profesionales que necesitan claridad y dirección.",
+};
+---
+
+<BaseLayout metadata={metadata}>
+  <section class="relative px-4 py-12 sm:px-6 lg:px-8 md:py-16">
+    <div class="mx-auto max-w-5xl">
+      <Headline
+        tagline="Servicio"
+        title="Plan de comunicación"
+        subtitle="Ordenamos la comunicación para que deje de depender de la improvisación y empiece a responder a una lógica más clara, sostenible y útil."
+        classes={{
+          container: "mb-12 text-center",
+          title:
+            "font-heading mb-4 text-4xl font-bold tracking-tight text-foreground md:text-6xl",
+          subtitle: "mx-auto max-w-3xl text-xl text-muted-foreground",
+        }}
+      />
+
+      <div class="prose prose-lg dark:prose-invert mx-auto max-w-3xl prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-li:text-muted-foreground prose-a:text-primary">
+        <p>
+          Muchas veces el problema no es la falta de ideas, sino la falta de orden.
+          Se comunica mucho, pero sin prioridades claras, sin criterio compartido y
+          sin una estructura que ayude a sostener el trabajo en el tiempo.
+        </p>
+
+        <p>
+          El plan de comunicación busca resolver eso: entender la situación,
+          detectar lo importante y traducirlo en una lógica concreta de acción.
+        </p>
+
+        <h2>Qué incluye</h2>
+
+        <ul>
+          <li>Diagnóstico de la comunicación actual</li>
+          <li>Definición de objetivos</li>
+          <li>Orden de prioridades</li>
+          <li>Clarificación de públicos y mensajes</li>
+          <li>Propuesta de canales y formatos</li>
+          <li>Lineamientos para contenido y comunicación visual</li>
+          <li>Base para una ejecución más consistente</li>
+        </ul>
+
+        <h2>Para quién sirve</h2>
+
+        <p>
+          Es útil para equipos, instituciones, profesionales o marcas que sienten
+          que su comunicación está desordenada, fragmentada o demasiado apoyada en
+          decisiones del momento.
+        </p>
+
+        <h2>Cómo trabajamos</h2>
+
+        <p>
+          Primero entendemos el contexto, la realidad actual y los problemas de
+          fondo. Después ordenamos la información, detectamos prioridades y
+          proponemos una lógica de trabajo que permita comunicar mejor sin depender
+          de la improvisación constante.
+        </p>
+
+        <h2>Qué se busca lograr</h2>
+
+        <ul>
+          <li>Más claridad al comunicar</li>
+          <li>Más coherencia entre piezas y mensajes</li>
+          <li>Menos improvisación</li>
+          <li>Mejor criterio para decidir qué hacer y qué no</li>
+        </ul>
+
+        <h2>¿Querés trabajar este servicio?</h2>
+
+        <p>
+          Si tu comunicación necesita orden, foco y una base más clara para crecer,
+          escribime y lo vemos.
+        </p>
+
+        <p>
+          <a href="/contacto">Ir a contacto</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {relatedPosts.length > 0 && (
+    <section class="relative px-4 pb-12 sm:px-6 lg:px-8 md:pb-16">
+      <div class="mx-auto max-w-5xl">
+        <div class="mb-10 text-center">
+          <p class="text-sm font-semibold tracking-wide text-primary uppercase">
+            Recursos relacionados
+          </p>
+          <h2 class="font-heading mt-2 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+            Artículos sobre plan de comunicación
+          </h2>
+          <p class="mx-auto mt-3 max-w-2xl text-muted-foreground">
+            Ideas, guías y contenidos para profundizar este tema.
+          </p>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {relatedPosts.map((post) => (
+            <PostItem post={post} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

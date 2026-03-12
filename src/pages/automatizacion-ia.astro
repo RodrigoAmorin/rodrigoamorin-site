@@ -1,0 +1,124 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Headline from "../components/ui/Headline.astro";
+import PostItem from "../components/blog/PostItem.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog");
+
+const relatedPosts = allPosts
+  .filter(
+    (post) =>
+      post.data &&
+      post.data.pubDate &&
+      post.data.category === "Automatización e IA"
+  )
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const metadata = {
+  title: "Automatización e IA",
+  description:
+    "Automatización e inteligencia artificial aplicada a la comunicación, la producción de contenido y los procesos digitales. Soluciones pensadas para ahorrar tiempo y mejorar consistencia.",
+};
+---
+
+<BaseLayout metadata={metadata}>
+  <section class="relative px-4 py-12 sm:px-6 lg:px-8 md:py-16">
+    <div class="mx-auto max-w-5xl">
+      <Headline
+        tagline="Servicio"
+        title="Automatización e IA"
+        subtitle="Aplicamos automatización e inteligencia artificial para ordenar tareas, ahorrar tiempo y construir sistemas más consistentes."
+        classes={{
+          container: "mb-12 text-center",
+          title:
+            "font-heading mb-4 text-4xl font-bold tracking-tight text-foreground md:text-6xl",
+          subtitle: "mx-auto max-w-3xl text-xl text-muted-foreground",
+        }}
+      />
+
+      <div class="prose prose-lg dark:prose-invert mx-auto max-w-3xl prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-li:text-muted-foreground prose-a:text-primary">
+        <p>
+          La automatización y la inteligencia artificial no deberían sumarse como
+          ruido o moda, sino como herramientas útiles para resolver problemas
+          concretos dentro de la comunicación y la producción.
+        </p>
+
+        <p>
+          Bien implementadas, permiten reducir tareas repetitivas, ordenar flujos
+          de trabajo y sostener mejor ciertos procesos.
+        </p>
+
+        <h2>Qué incluye</h2>
+
+        <ul>
+          <li>Detección de procesos automatizables</li>
+          <li>Diseño de flujos de trabajo</li>
+          <li>Integración entre herramientas</li>
+          <li>Automatización de tareas repetitivas</li>
+          <li>Uso estratégico de IA para contenido y producción</li>
+          <li>Sistemas pensados para escalar mejor</li>
+        </ul>
+
+        <h2>Para qué sirve</h2>
+
+        <p>
+          Sirve cuando hay tareas que consumen tiempo, procesos desordenados o
+          trabajos que podrían resolverse con más velocidad y consistencia.
+        </p>
+
+        <h2>Cómo trabajamos</h2>
+
+        <p>
+          Primero identificamos qué parte del proceso conviene intervenir. Después
+          definimos si tiene sentido automatizar, simplificar o incorporar IA, y
+          lo traducimos a una solución concreta.
+        </p>
+
+        <h2>Ejemplos posibles</h2>
+
+        <ul>
+          <li>Automatización de carga y organización de contenido</li>
+          <li>Generación asistida de piezas o borradores</li>
+          <li>Conexión entre formularios, bases de datos y procesos internos</li>
+          <li>Optimización de flujos de producción</li>
+        </ul>
+
+        <h2>¿Querés trabajar este servicio?</h2>
+
+        <p>
+          Si querés aplicar automatización o IA con criterio real y no solo por
+          tendencia, escribime y lo vemos.
+        </p>
+
+        <p>
+          <a href="/contacto">Ir a contacto</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {relatedPosts.length > 0 && (
+    <section class="relative px-4 pb-12 sm:px-6 lg:px-8 md:pb-16">
+      <div class="mx-auto max-w-5xl">
+        <div class="mb-10 text-center">
+          <p class="text-sm font-semibold tracking-wide text-primary uppercase">
+            Recursos relacionados
+          </p>
+          <h2 class="font-heading mt-2 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+            Artículos sobre automatización e IA
+          </h2>
+          <p class="mx-auto mt-3 max-w-2xl text-muted-foreground">
+            Contenidos para profundizar ideas, herramientas y aplicaciones posibles.
+          </p>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {relatedPosts.map((post) => (
+            <PostItem post={post} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

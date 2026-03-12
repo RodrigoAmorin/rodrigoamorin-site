@@ -1,0 +1,150 @@
+---
+import WidgetWrapper from "./WidgetWrapper.astro";
+import Headline from "../ui/Headline.astro";
+
+interface Props {
+  id?: string;
+  title?: string;
+  subtitle?: string;
+  isDark?: boolean;
+  classes?: Record<string, string>;
+  dense?: boolean;
+  exclude?: string[];
+}
+
+const {
+  id = "clientes",
+  title = "Confían en nuestro trabajo",
+  subtitle = "Algunas marcas con las que trabajamos.",
+  isDark = false,
+  classes = {},
+  dense = false,
+  exclude = [],
+} = Astro.props as Props;
+
+const svgs = import.meta.glob("/src/assets/images/clienteslogos/*.svg", {
+  eager: true,
+  query: "?url",
+  import: "default",
+});
+
+let items = Object.entries(svgs).map(([path, url]) => {
+  const filename = path.split("/").pop() || "";
+  const raw = filename.replace(".svg", "");
+  const name = raw.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+  return { name, url: url as string };
+});
+
+items.sort((a, b) => a.name.localeCompare(b.name, "es"));
+
+if (exclude.length) {
+  const ex = new Set(exclude.map((x) => x.toLowerCase()));
+  items = items.filter((it) => !ex.has(it.name.toLowerCase()));
+}
+---
+
+<WidgetWrapper id={id} isDark={isDark} classes={classes}>
+  <section class="mx-auto max-w-6xl">
+<Headline
+  tagline="Clientes y proyectos"
+  title={title}
+  subtitle={subtitle}
+  classes={{
+    container: "max-w-3xl mx-auto text-center",
+  }}
+/>
+
+    <!-- Flex wrap = última fila centrada SIEMPRE -->
+    <div class={`logos ${dense ? "dense" : ""}`} aria-label="Logos de clientes">
+      {items.map((it) => (
+        <div class="logo" title={it.name} aria-label={it.name}>
+          <img src={it.url} alt={it.name} loading="lazy" decoding="async" />
+        </div>
+      ))}
+    </div>
+  </section>
+</WidgetWrapper>
+
+<style>
+  header{ text-align:center; }
+
+  /* ✅ clase nueva, sin conflictos */
+  .kicker{
+    font-size:12px;
+    letter-spacing:.15em;
+    font-weight:700;
+
+    /* SIN uppercase para que sea consistente con tus otros taglines */
+    text-transform:none;
+
+    /* ✅ fuerza color de la plantilla (si te lo pisan, esto lo gana por especificidad) */
+    color: hsl(var(--primary)) !important;
+    opacity: .95;
+  }
+
+  /* ✅ centrado real (incluye última fila) */
+  .logos{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    gap: 14px;
+    max-width: 980px;   /* “bloque cerrado” */
+    margin: 0 auto;     /* centrado del bloque */
+  }
+
+  .logo{
+    height: 74px;
+    width: 180px;       /* controla “5 arriba / 3 abajo” aprox */
+    max-width: 42vw;    /* mobile friendly */
+    border-radius: 16px;
+
+    background: color-mix(in oklab, hsl(var(--card)) 96%, transparent);
+    border: 1px solid color-mix(in oklab, hsl(var(--border)) 85%, transparent);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 14px;
+
+    /* sombra mínima para que en blanco no desaparezca */
+    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  }
+
+  .dense .logo{
+    height: 62px;
+    width: 160px;
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display:block;
+
+    /* Importante: NO los apaguemos en blanco */
+    opacity: .92;
+    filter: none;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+
+  .logo:hover img{
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+  /* ✅ Igual que el resto de la home */
+.tagline{
+  font-size:12px;
+  letter-spacing:.15em;
+  font-weight:700;
+  text-transform:none;           /* consistente con tus otros taglines */
+  color:hsl(var(--primary));
+  margin-bottom: 6px;
+}
+
+  @media (max-width: 640px){
+    .logo{ width: 46vw; }
+  }
+</style>

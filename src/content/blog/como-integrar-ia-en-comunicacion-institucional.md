@@ -3,7 +3,7 @@ title: "Cómo integrar IA en comunicación institucional"
 pubDate: "2026-03-02"
 description: "Guía estratégica para integrar inteligencia artificial en la comunicación institucional sin perder identidad ni criterio."
 author: "Rodrigo Amorín"
-category: "Tecnología Aplicada"
+category: "Automatización e IA"
 tags: ["Inteligencia Artificial", "Automatizacion", "Estrategia", "Sistemas"]
 image: "/blog/blog_post_10_1768850582328.webp"
 ---

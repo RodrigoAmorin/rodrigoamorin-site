@@ -1,0 +1,81 @@
+---
+import Form from "../ui/Form.astro";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  tagline?: string;
+  title?: string;
+  subtitle?: string;
+  formName?: string;
+  successUrl?: string;
+}
+
+const {
+  tagline = "Diagnóstico express",
+  title = "Diagnóstico express (15 min)",
+  subtitle = "Contame qué está pasando y te devuelvo un plan de próximos pasos, claro y accionable.",
+  formName = "diagnostico-express",
+  successUrl = "/gracias/",
+} = Astro.props as Props;
+
+const includes = [
+  {
+    title: "Qué está trabando hoy",
+    description: "Identificamos el cuello de botella (personas, tiempos, canales o procesos).",
+    icon: "lucide:search",
+    iconClass: "bg-blue-500/10 text-blue-400",
+  },
+  {
+    title: "Prioridades y orden",
+    description: "Definimos por dónde empezar para que el equipo lo pueda sostener.",
+    icon: "lucide:list-checks",
+    iconClass: "bg-purple-500/10 text-purple-400",
+  },
+  {
+    title: "Propuesta de camino",
+    description: "Te sugiero un enfoque y qué servicio conviene (plan, producción o automatización).",
+    icon: "lucide:map",
+    iconClass: "bg-pink-500/10 text-pink-400",
+  },
+];
+---
+
+<section class="relative px-4 py-16 sm:px-6 lg:px-8 md:py-20">
+  <div class="relative mx-auto max-w-5xl">
+    <div class="max-w-3xl mx-auto text-center mb-10">
+      <p class="text-sm font-semibold tracking-wide text-primary uppercase">{tagline}</p>
+      <h2 class="font-heading mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        {title}
+      </h2>
+      <p class="mt-4 text-muted-foreground text-lg">
+        {subtitle}
+      </p>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-2 items-start">
+      <!-- Form (mismo estilo que contacto) -->
+      <div class="reveal mx-auto w-full bg-card border border-border rounded-3xl p-8 shadow-sm">
+        <Form formName={formName} successUrl={successUrl} />
+      </div>
+
+      <!-- Tangible / qué incluye -->
+      <div class="space-y-4">
+        {includes.map((item) => (
+          <div class="flex gap-4 rounded-2xl border border-border bg-card/40 p-5">
+            <div class={`shrink-0 rounded-xl p-3 ${item.iconClass}`}>
+              <Icon name={item.icon} class="w-5 h-5" />
+            </div>
+            <div>
+              <h3 class="font-semibold text-foreground">{item.title}</h3>
+              <p class="mt-1 text-sm text-muted-foreground">{item.description}</p>
+            </div>
+          </div>
+        ))}
+
+        <p class="text-xs text-muted-foreground">
+          Tip: si preferís, podés escribir directo por WhatsApp y lo resolvemos por ahí.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

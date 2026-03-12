@@ -12,7 +12,7 @@ interface Props {
     ignoreTitleTemplate?: boolean;
   };
 }
-
+import Analytics from "../components/Analytics.astro";
 import Seo from "../components/seo/Seo.astro";
 import Schema from "../components/seo/Schema.astro";
 import Navbar from "../components/layout/Navbar.astro";
@@ -34,6 +34,7 @@ const finalIgnoreTitleTemplate = metadata?.ignoreTitleTemplate || false;
 <!doctype html>
 <html lang={siteConfig.lang} class="scroll-smooth">
   <head>
+    
     <Seo
       title={finalTitle}
       description={finalDescription}
@@ -42,6 +43,7 @@ const finalIgnoreTitleTemplate = metadata?.ignoreTitleTemplate || false;
       ignoreTitleTemplate={finalIgnoreTitleTemplate}
     />
     <Schema type="WebSite" data={{}} />
+    <Analytics />
     <slot name="head" />
     <script is:inline>
       const getTheme = () => {

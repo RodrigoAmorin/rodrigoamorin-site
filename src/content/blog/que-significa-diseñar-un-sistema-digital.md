@@ -3,7 +3,7 @@ title: "Qué significa diseñar un sistema digital"
 pubDate: "2026-03-03"
 description: "Diseñar un sistema digital no es hacer una web o una app. Es construir una estructura coherente que conecte estrategia, procesos y experiencia."
 author: "Rodrigo Amorín"
-category: "Tecnología Aplicada"
+category: "Producción audiovisual"
 tags: ["Sistema digital","Estrategia", "UX", "Automatización", "Arquitectura digital"]
 image: "/blog/blog_post_2_1768848698871.webp"
 ---

@@ -1,0 +1,47 @@
+---
+interface Item {
+  label: string;
+}
+
+interface Props {
+  tagline?: string;
+  title?: string;
+  items?: Item[];
+}
+
+const {
+  tagline = "Herramientas",
+  title = "Trabajamos con el stack que ya usás",
+  items = [
+    { label: "Adobe Premiere" },
+    { label: "After Effects" },
+    { label: "Photoshop" },
+    { label: "Illustrator" },
+    { label: "Blender" },
+    { label: "Figma" },
+    { label: "Notion" },
+    { label: "Google Workspace" },
+    { label: "Meta Business Suite" },
+    { label: "Trello" },
+  ],
+} = Astro.props as Props;
+---
+
+<section class="relative px-4 py-12 sm:px-6 lg:px-8">
+  <div class="relative mx-auto max-w-5xl">
+    <div class="max-w-3xl mx-auto text-center mb-8">
+      <p class="text-sm font-semibold tracking-wide text-primary uppercase">{tagline}</p>
+      <h2 class="font-heading mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+        {title}
+      </h2>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-3">
+      {items.map((i) => (
+        <span class="rounded-full border border-border bg-muted/30 px-4 py-2 text-sm text-muted-foreground">
+          {i.label}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>

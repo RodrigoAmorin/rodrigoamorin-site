@@ -2,14 +2,25 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { siteConfig } from "../config/site";
 import Hero from "../components/widgets/Hero.astro";
+import ClientLogos from "../components/widgets/ClientLogos.astro";
+import WorkGrid from "../components/widgets/WorkGrid.astro";
+import Certifications from "../components/widgets/Certifications.astro";
 import Features from "../components/widgets/Features.astro";
-import devImg from "../assets/images/dev_balanced.png";
-import openSourceImg from "../assets/images/open-source.png";
 import Content2 from "../components/widgets/Content2.astro";
+
+import planComImg from "../assets/images/services/plan-de-comunicacion.webp";
+import produccionImg from "../assets/images/services/Diseno-multimedia.webp";
+import iaImg from "../assets/images/services/automatizacion-ia.webp";
+
+import ProofStrip from "../components/widgets/ProofStrip.astro";
+import ContactCTA from "../components/widgets/ContactCTA.astro";
+import ToolMarquee from "../components/widgets/ToolMarquee.astro";
+import Timeline from "../components/widgets/Timeline.astro";
+
 const metadata = {
-  title: `${siteConfig.name} — The next step for your project`,
+  title: `${siteConfig.name} — Estudio de comunicación multimedia`,
   description:
-    "A modern and professional template for your web projects with Astro and Tailwind CSS. Boost your development with a solid foundation.",
+    "Plan de comunicación, producción multimedia y automatización con IA para empresas e instituciones. Orden, claridad y consistencia.",
   ignoreTitleTemplate: true,
 };
 ---
@@ -18,117 +29,95 @@ const metadata = {
   <Hero
     title={`Estudio de comunicación <br class="hidden md:block" /> <span class="bg-linear-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Multimedial</span>`}
     tagline="Evolucionamos tu presencia digital."
-    description={`${siteConfig.description}`}
+    description="Ayudamos a empresas e instituciones a ordenar su comunicación, producir contenido con coherencia y mejorar procesos con tecnología."
     actions={[
-      {
-        text: "Contactanos",
-        href: "/contacto",
-        variant: "primary",
-        icon: "lucide:arrow-right",
-      },
-      {
-        text: "Nuestros Servicios",
-        href: "/servicios",
-        variant: "secondary",
-        icon: "lucide:arrow-right",
-        ariaLabel: "Conozca más sobre nuestros servicios",
-      },
+      { text: "Contactanos", href: "/contacto", variant: "primary", icon: "lucide:arrow-right" },
+      { text: "Nuestros Servicios", href: "/servicios", variant: "secondary", icon: "lucide:arrow-right", ariaLabel: "Conozca más sobre nuestros servicios" },
     ]}
   />
+      <ClientLogos />
   <Features
-    tagline="Features"
-    title="What's Included"
-    subtitle="A selection of tools and configurations to streamline your workflow."
+    tagline="Servicios"
+    title="Qué hacemos"
+    subtitle="Tres formas concretas de ordenar, producir y sostener tu comunicación."
     features={[
-      {
-        title: "Optimized SEO",
-        description:
-          "Base configuration for Meta tags, Open Graph, and Sitemap generation.",
-        icon: "lucide:scan-search",
-        iconClass: "bg-blue-500/10 text-blue-400",
-      },
-      {
-        title: "High Performance",
-        description: "Lightweight structure for fast load times.",
-        icon: "lucide:zap",
-        iconClass: "bg-purple-500/10 text-purple-400",
-      },
-      {
-        title: "Tailwind v4",
-        description:
-          "Integrated configuration with the latest version of Tailwind CSS.",
-        icon: "lucide:palette",
-        iconClass: "bg-pink-500/10 text-pink-400",
-      },
+      { title: "Plan de comunicación", description: "Definimos prioridades, calendario, mensajes y responsables para que deje de depender de una sola persona.", icon: "lucide:clipboard-list", iconClass: "bg-blue-500/10 text-blue-400" },
+      { title: "Producción multimedia", description: "Diseño, video y motion para campañas, institucional, redes y streaming con formatos reutilizables.", icon: "lucide:film", iconClass: "bg-purple-500/10 text-purple-400" },
+      { title: "Automatización e IA", description: "Ordenamos flujos internos y automatizamos tareas repetitivas para ahorrar tiempo y reducir errores.", icon: "lucide:zap", iconClass: "bg-pink-500/10 text-pink-400" },
     ]}
   />
+
+
+
   <Content2
     items={[
-      {
-        title: "Responsive Design",
-        description:
-          "Base configuration for Meta tags, Open Graph, and Sitemap generation.",
-        icon: "lucide:scan-search",
-        iconClass: "bg-blue-500/10 text-blue-400",
-      },
-      {
-        title: "High Performance",
-        description: "Lightweight structure for fast load times.",
-        icon: "lucide:zap",
-        iconClass: "bg-purple-500/10 text-purple-400",
-      },
-      {
-        title: "Tailwind v4",
-        description:
-          "Integrated configuration with the latest version of Tailwind CSS.",
-        icon: "lucide:palette",
-        iconClass: "bg-pink-500/10 text-pink-400",
-      },
+      { title: "Prioridades y calendario", description: "Una hoja de ruta realista para no improvisar temas todas las semanas.", icon: "lucide:calendar", iconClass: "bg-blue-500/10 text-blue-400" },
+      { title: "Mensajes y tono", description: "Qué decir y cómo decirlo: coherencia entre áreas y canales.", icon: "lucide:message-square", iconClass: "bg-purple-500/10 text-purple-400" },
+      { title: "Organización del equipo", description: "Roles, responsables y seguimiento simple para sostener el plan.", icon: "lucide:users", iconClass: "bg-pink-500/10 text-pink-400" },
     ]}
-    image={devImg}
-    imageAlt="Development"
+    image={planComImg}
+    imageAlt="Plan de comunicación"
   >
-    <Fragment>
-      <h3 class="text-2xl font-bold tracking-tight sm:text-3xl mb-2">
-        Development
-      </h3>
-      We provide a solid foundation to start your projects with best practices.
-    </Fragment>
+    <div>
+      <h2 class="text-2xl font-bold tracking-tight sm:text-3xl mb-2">Plan de comunicación</h2>
+      <p class="text-muted-foreground">
+        Ordenamos la comunicación para que sea constante y clara, sin depender de decisiones improvisadas ni de una sola persona.
+      </p>
+      <div class="mt-5">
+        <a href="/servicios#plan-de-comunicacion" class="text-primary font-semibold inline-flex items-center gap-2 no-underline hover:underline">
+          Ver cómo funciona <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
   </Content2>
+
   <Content2
-    items={[
-      {
-        title: "Open Source",
-        description:
-          "Developed under the MIT license, free for personal and commercial use.",
-        icon: "lucide:github",
-        iconClass: "bg-indigo-500/10 text-indigo-400",
-      },
-      {
-        title: "Community Driven",
-        description:
-          "Built with the feedback and contributions of the developer community.",
-        icon: "lucide:users",
-        iconClass: "bg-orange-500/10 text-orange-400",
-      },
-      {
-        title: "Regular Updates",
-        description:
-          "Continuously improved with the latest technologies and best practices.",
-        icon: "lucide:refresh-cw",
-        iconClass: "bg-teal-500/10 text-teal-400",
-      },
-    ]}
-    image={openSourceImg}
-    imageAlt="Community and Open Source"
     isReversed={true}
+    items={[
+      { title: "Diseño y campaña", description: "Placas, banners, carruseles y adaptaciones por formato.", icon: "lucide:layout-template", iconClass: "bg-indigo-500/10 text-indigo-400" },
+      { title: "Video y motion", description: "Reels, institucionales, zócalos, packs y piezas para streaming.", icon: "lucide:video", iconClass: "bg-orange-500/10 text-orange-400" },
+      { title: "Sistema de formatos", description: "Plantillas y criterios para producir más rápido y con consistencia.", icon: "lucide:layers", iconClass: "bg-teal-500/10 text-teal-400" },
+    ]}
+    image={produccionImg}
+    imageAlt="Producción multimedia"
   >
-    <Fragment>
-      <h3 class="text-2xl font-bold tracking-tight sm:text-3xl mb-2">
-        Open Source & Community
-      </h3>
-      Join the revolution of modern web development. This project is open for everyone
-      to use, learn from, and contribute to.
-    </Fragment>
+    <div>
+      <h2 class="text-2xl font-bold tracking-tight sm:text-3xl mb-2">Producción multimedia</h2>
+      <p class="text-muted-foreground">
+        Diseñamos y producimos piezas que se integran a un sistema: sirven para comunicar, escalar y sostener campañas sin reinventar todo desde cero.
+      </p>
+      <div class="mt-5">
+        <a href="/servicios#produccion-multimedia" class="text-primary font-semibold inline-flex items-center gap-2 no-underline hover:underline">
+          Ver qué incluye <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
   </Content2>
+
+  <Content2
+    items={[
+      { title: "Formularios y flujos", description: "Ingreso de datos ordenado y derivación automática.", icon: "lucide:form-input", iconClass: "bg-blue-500/10 text-blue-400" },
+      { title: "Seguimientos y alertas", description: "Recordatorios, avisos y respuestas para que los procesos no se caigan.", icon: "lucide:bell", iconClass: "bg-purple-500/10 text-purple-400" },
+      { title: "Asistencia con IA", description: "Borradores, clasificación y organización cuidando el tono institucional.", icon: "lucide:sparkles", iconClass: "bg-pink-500/10 text-pink-400" },
+    ]}
+    image={iaImg}
+    imageAlt="Automatización e IA"
+  >
+    <div>
+      <h2 class="text-2xl font-bold tracking-tight sm:text-3xl mb-2">Automatización e IA</h2>
+      <p class="text-muted-foreground">
+        Aplicamos tecnología para bajar fricción: menos tareas repetidas, menos errores, y más tiempo para lo que realmente mueve la aguja.
+      </p>
+      <div class="mt-5">
+        <a href="/servicios#automatizacion-ia" class="text-primary font-semibold inline-flex items-center gap-2 no-underline hover:underline">
+          Ver casos típicos <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </Content2>
+<ToolMarquee speedSeconds={26} dense={false} />
+<Timeline />
+<WorkGrid />
+  <Certifications />
+  <ContactCTA />
 </BaseLayout>

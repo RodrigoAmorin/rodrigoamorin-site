@@ -1,0 +1,298 @@
+---
+import WidgetWrapper from "./WidgetWrapper.astro";
+import Headline from "../ui/Headline.astro";
+
+interface Step {
+  n: string;
+  title: string;
+  desc: string;
+}
+
+interface Props {
+  id?: string;
+  isDark?: boolean;
+  classes?: Record<string, string>;
+  bg?: string;
+
+  tagline?: string;
+  title?: string;
+  subtitle?: string;
+
+  steps?: Step[];
+}
+
+const {
+  id = "como-trabajamos",
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render("bg"),
+
+  tagline = "Cómo trabajamos",
+  title = "Un proceso simple, con seguimiento",
+  subtitle = "Para que el proyecto avance sin depender de idas y vueltas eternas.",
+
+  steps = [
+    { n: "01", title: "Diagnóstico express", desc: "Entendemos objetivo, contexto y urgencias. Definimos qué es “éxito” para vos." },
+    { n: "02", title: "Plan y prioridades", desc: "Ordenamos mensajes, canales y un calendario realista. Qué va primero y por qué." },
+    { n: "03", title: "Producción y entregas", desc: "Diseño, video y piezas listas para usar. Con criterios para que sea consistente." },
+    { n: "04", title: "Sistema + optimización", desc: "Automatizamos lo repetible, dejamos tableros y mejoramos según resultados." },
+  ],
+} = Astro.props as Props;
+
+const { container: containerClassProp = "", ...otherClasses } = classes;
+---
+
+<WidgetWrapper
+  id={id}
+  isDark={isDark}
+  bg={bg}
+  classes={otherClasses}
+  containerClass={` ${containerClassProp}`}
+>
+  <section class="mx-auto max-w-6xl">
+    <Headline
+      title={title}
+      subtitle={subtitle}
+      tagline={tagline}
+      classes={{
+        container: "max-w-3xl mx-auto text-center mb-10 md:mb-12",
+      }}
+    />
+
+    <div class="tl">
+      <div class="tl-line" aria-hidden="true"></div>
+
+      <div class="tl-grid">
+        {steps.map((s) => (
+          <div class="tl-step">
+            <div class="tl-node" aria-hidden="true">
+              <span class="tl-nodeText">{s.n}</span>
+            </div>
+
+            <div class="tl-card">
+              <h3 class="tl-title">{s.title}</h3>
+              <p class="tl-desc">{s.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</WidgetWrapper>
+
+<style>
+<style>
+  .tl{
+    position: relative;
+    padding-top: 42px; /* más aire arriba para la línea */
+  }
+
+  /* ===== LINEA HORIZONTAL (desktop) ===== */
+  .tl-line{
+    position:absolute;
+    left: 0;
+    right: 0;
+    top: 30px;
+    height: 1px;
+
+    /* línea “pro”: centro apenas más fuerte */
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      color-mix(in oklab, var(--border) 70%, transparent) 10%,
+      color-mix(in oklab, var(--border) 95%, transparent) 50%,
+      color-mix(in oklab, var(--border) 70%, transparent) 90%,
+      transparent 100%
+    );
+
+    /* glow ultra sutil */
+    box-shadow: 0 8px 18px color-mix(in oklab, var(--primary) 10%, transparent);
+    pointer-events:none;
+    z-index: 0;
+  }
+
+  .tl-grid{
+    display:grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px; /* más aire */
+  }
+
+  .tl-step{
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    min-width: 0;
+    z-index: 1;
+  }
+
+  /* ===== NODO ===== */
+  .tl-node{
+    width: 58px;
+    height: 58px;
+    border-radius: 999px;
+    margin: 0 auto 18px; /* más separación con la card */
+    display:grid;
+    place-items:center;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* aro externo */
+  .tl-node::before{
+    content:"";
+    position:absolute;
+    inset:-10px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+    background: transparent;
+  }
+
+  /* cuerpo */
+  .tl-node::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--card) 90%, transparent);
+    border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
+    box-shadow:
+      0 14px 34px rgba(0,0,0,.10),
+      inset 0 1px 0 color-mix(in oklab, var(--foreground) 8%, transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  .tl-nodeText{
+    position: relative;
+    z-index: 3;
+    font-weight: 900;
+    letter-spacing: .10em;
+    font-size: 12px;
+
+    background: linear-gradient(90deg, rgb(96,165,250), rgb(168,85,247), rgb(236,72,153));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    filter: drop-shadow(0 1px 10px rgba(0,0,0,.20));
+  }
+
+  /* ===== CARD ===== */
+  .tl-card{
+    border-radius: 18px;
+    padding: 18px 18px 16px;
+    min-height: 148px;
+
+    background: color-mix(in oklab, var(--card) 88%, var(--background));
+    border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
+
+    box-shadow:
+      0 18px 55px rgba(0,0,0,.08),
+      inset 0 1px 0 color-mix(in oklab, var(--foreground) 7%, transparent);
+  }
+
+  .tl-title{
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 0 8px;
+    color: var(--foreground);
+  }
+
+  .tl-desc{
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+  }
+
+  /* ===== DARK (tu sistema real) ===== */
+  :global(:root[data-theme="dark"]) .tl-line{
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255,255,255,.10) 10%,
+      rgba(255,255,255,.18) 50%,
+      rgba(255,255,255,.10) 90%,
+      transparent 100%
+    );
+    box-shadow: 0 10px 24px rgba(139,188,255,.10);
+  }
+
+  :global(:root[data-theme="dark"]) .tl-node::before{
+    border-color: rgba(255,255,255,.18);
+  }
+
+  :global(:root[data-theme="dark"]) .tl-node::after{
+    background: rgba(10,10,10,.65);
+    border-color: rgba(255,255,255,.14);
+    box-shadow:
+      0 22px 62px rgba(0,0,0,.45),
+      0 0 24px rgba(168,85,247,.12),
+      inset 0 1px 0 rgba(255,255,255,.08);
+  }
+
+  :global(:root[data-theme="dark"]) .tl-card{
+    background: rgba(10,10,10,.62);
+    border-color: rgba(255,255,255,.12);
+    box-shadow:
+      0 22px 70px rgba(0,0,0,.45),
+      inset 0 1px 0 rgba(255,255,255,.06);
+  }
+
+  /* ===== TABLET: 2 columnas ===== */
+  @media (max-width: 1024px){
+    .tl{
+      padding-top: 0;
+    }
+    .tl-line{
+      display:none; /* horizontal no sirve */
+    }
+    .tl-grid{
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .tl-node{
+      margin-bottom: 14px;
+    }
+  }
+
+  /* ===== MOBILE: timeline vertical con rail ===== */
+  @media (max-width: 640px){
+    .tl-grid{
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .tl-step{
+      display:grid;
+      grid-template-columns: 74px 1fr; /* rail + card */
+      column-gap: 14px;
+      align-items:start;
+    }
+
+    /* línea vertical */
+    .tl-step::before{
+      content:"";
+      position:absolute;
+      left: 36px;           /* centrado con el nodo */
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: color-mix(in oklab, var(--border) 75%, transparent);
+      opacity: .9;
+    }
+
+    :global(:root[data-theme="dark"]) .tl-step::before{
+      background: rgba(255,255,255,.14);
+    }
+
+    .tl-node{
+      margin: 0;            /* ahora lo controla la grilla */
+      transform: translateY(6px);
+    }
+
+    .tl-card{
+      min-height: auto;
+    }
+  }
+</style>
+</style>

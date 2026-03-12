@@ -3,7 +3,7 @@ title: "Cómo ordenar la comunicación de una empresa"
 pubDate: "2026-03-03"
 description: "Guía estratégica para estructurar la comunicación empresarial con procesos claros, identidad coherente y planificación alineada a objetivos."
 author: "Rodrigo Amorín"
-category: "Comunicación Estratégica"
+category: "Plan de comunicación"
 tags: ["Estrategia","Procesos","Comunicación interna", "Liderazgo", "Sistemas"]
 image: "/blog/blog_post_4_1768848735398.webp"
 ---

@@ -3,13 +3,14 @@ import Button from "./Button.astro";
 
 interface Props {
   successUrl?: string; // a dónde redirige al enviar
+  formName?: string;   // nombre del form para Netlify
 }
 
-const { successUrl = "/gracias/" } = Astro.props;
+const { successUrl = "/gracias/", formName = "contacto" } = Astro.props;
 ---
 
 <form
-  name="contacto"
+  name={formName}
   method="POST"
   action={successUrl}
   data-netlify="true"
@@ -17,7 +18,7 @@ const { successUrl = "/gracias/" } = Astro.props;
   class="space-y-6"
 >
   <!-- Obligatorio para que Netlify identifique el formulario -->
-  <input type="hidden" name="form-name" value="contacto" />
+  <input type="hidden" name="form-name" value={formName} />
 
   <!-- Campo trampa anti-spam (no se ve) -->
   <p class="hidden">

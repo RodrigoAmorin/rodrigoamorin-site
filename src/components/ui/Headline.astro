@@ -23,12 +23,12 @@ const Title = titleAs as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   (title || subtitle || tagline) && (
     <div class={`mb-4 ${container}`}>
       {tagline && (
-        <div
-          class={`inline-flex items-center gap-2 px-3 py-1 text-primary text-lg font-semibold ${taglineClass}`}
-        >
-          {tagline}
-        </div>
-      )}
+  <div
+    class={`inline-flex items-center gap-2 px-3 py-1 text-primary ${taglineClass || "text-sm font-medium tracking-widest uppercase"}`}
+  >
+    {tagline}
+  </div>
+)}
       {title && (
         <Title
           class={`font-bold tracking-tight text-foreground mb-4 ${titleClass}`}
