@@ -1,76 +1,133 @@
 ---
+import WidgetWrapper from "./WidgetWrapper.astro";
+import Headline from "../ui/Headline.astro";
+
 type Cert = { title: string; org: string; logo: string };
 
-// Trae TODOS los svgs de la carpeta como URL (string)
 const certSvgs = import.meta.glob("/src/assets/images/certificaciones/*.svg", {
   eager: true,
   as: "url",
 });
 
-// helper: busca por nombre de archivo
 function byFile(file: string) {
-  const entry = Object.entries(certSvgs).find(([path]) => path.endsWith(`/${file}`));
+  const entry = Object.entries(certSvgs).find(([path]) =>
+    path.endsWith(`/${file}`),
+  );
   return entry?.[1] as string | undefined;
 }
 
-// Armás la lista “a mano” (control total) pero con logos resueltos por filename
 const certs: Cert[] = [
-  { title: "Google Analytics Certification", org: "Google", logo: byFile("google-analytics.svg") ?? "" },
-  { title: "Google Ads Search Certification", org: "Google", logo: byFile("google-ads.svg") ?? "" },
-  { title: "Meta Ads Certification", org: "Meta", logo: byFile("meta-ads.svg") ?? "" },
-  { title: "Content Marketing Certification", org: "HubSpot", logo: byFile("hubspot.svg") ?? "" },
-  { title: "SEO Toolkit Certification", org: "SEMrush", logo: byFile("semrush.svg") ?? "" },
-].filter((c) => c.logo); // si falta algún archivo, lo oculta
+  {
+    title: "Google Analytics Certification",
+    org: "Google",
+    logo: byFile("google-analytics.svg") ?? "",
+  },
+  {
+    title: "Google Ads Search Certification",
+    org: "Google",
+    logo: byFile("google-ads.svg") ?? "",
+  },
+  {
+    title: "Meta Ads Certification",
+    org: "Meta",
+    logo: byFile("meta-ads.svg") ?? "",
+  },
+  {
+    title: "Content Marketing Certification",
+    org: "HubSpot",
+    logo: byFile("hubspot.svg") ?? "",
+  },
+  {
+    title: "SEO Toolkit Certification",
+    org: "SEMrush",
+    logo: byFile("semrush.svg") ?? "",
+  },
+].filter((c) => c.logo);
 ---
 
-<section class="certs">
-  <header class="header">
-    <p class="tagline">CERTIFICACIONES</p>
-    <h2>Formación y especialización</h2>
-  </header>
+<WidgetWrapper classes={{ container: "pt-6 md:pt-8" }}>
+  <section class="certs">
+    <Headline
+      tagline="Certificaciones"
+      title="Formación y especialización"
+      subtitle="Plataformas y herramientas en las que sigo formándome para mejorar estrategia, medición y pauta."
+      classes={{
+        container: "max-w-3xl mx-auto text-center mb-10 md:mb-12",
+        title:
+          "font-heading mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl",
+        subtitle: "mx-auto max-w-3xl text-lg text-muted-foreground",
+        tagline: "text-sm font-semibold tracking-wide text-primary uppercase",
+      }}
+    />
 
-  <div class="grid">
-    {certs.map((cert) => (
-      <div class="card">
-        <img src={cert.logo} alt={`${cert.org} — ${cert.title}`} loading="lazy" decoding="async" />
-        <div class="text">
-          <h3>{cert.title}</h3>
-          <p>{cert.org}</p>
+    <div class="grid">
+      {certs.map((cert) => (
+        <div class="card">
+          <img
+            src={cert.logo}
+            alt={`${cert.org} - ${cert.title}`}
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="text">
+            <h3>{cert.title}</h3>
+            <p>{cert.org}</p>
+          </div>
         </div>
-      </div>
-    ))}
-  </div>
-</section>
+      ))}
+    </div>
+  </section>
+</WidgetWrapper>
 
 <style>
-  .certs{ margin-top:70px; }
-  .header{ text-align:center; }
-  .tagline{
-    font-size:12px;
-    letter-spacing:.15em;
-    text-transform:uppercase;
-    color:hsl(var(--primary));
-    font-weight:700;
+  .certs {
+    max-width: 960px;
+    margin: 0 auto;
   }
-  .grid{
-    margin-top:36px;
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:18px;
-  }
-  .card{
-    border-radius:14px;
-    border:1px solid hsl(var(--border));
-    background:hsl(var(--card));
-    padding:18px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-  }
-  .card img{ height:28px; width:auto; }
-  .card h3{ font-size:13px; font-weight:700; line-height:1.2; }
-  .card p{ font-size:12px; color:hsl(var(--muted-foreground)); }
 
-  @media (max-width: 1024px){ .grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width: 520px){ .grid{ grid-template-columns:1fr; } }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .card {
+    border-radius: 14px;
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--card));
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card img {
+    height: 24px;
+    width: auto;
+    flex: 0 0 auto;
+    max-width: 42px;
+  }
+
+  .card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .card p {
+    font-size: 12px;
+    color: hsl(var(--muted-foreground));
+  }
+
+  @media (max-width: 1024px) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 520px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>

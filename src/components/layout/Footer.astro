@@ -12,27 +12,33 @@ import { siteConfig } from "../../config/site";
         </p>
       </div>
       <div class="flex items-center gap-6">
-        <a
-          href={siteConfig.socialLinks.twitter}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-muted-foreground transition-colors hover:text-primary"
-          >Twitter</a
-        >
-        <a
-          href={siteConfig.socialLinks.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-muted-foreground transition-colors hover:text-primary"
-          >GitHub</a
-        >
-        <a
-          href={siteConfig.socialLinks.discord}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-muted-foreground transition-colors hover:text-primary"
-          >Discord</a
-        >
+        {siteConfig.socialLinks.twitter && (
+          <a
+            href={siteConfig.socialLinks.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-muted-foreground transition-colors hover:text-primary"
+            >Twitter</a
+          >
+        )}
+        {siteConfig.socialLinks.github && (
+          <a
+            href={siteConfig.socialLinks.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-muted-foreground transition-colors hover:text-primary"
+            >GitHub</a
+          >
+        )}
+        {siteConfig.socialLinks.discord && (
+          <a
+            href={siteConfig.socialLinks.discord}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-muted-foreground transition-colors hover:text-primary"
+            >Discord</a
+          >
+        )}
       </div>
     </div>
     <div

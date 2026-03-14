@@ -8,12 +8,12 @@ export const siteConfig = {
   lang: "es",
   locale: "es_AR",
   author: "Rodrigo Amorín",
-  twitter: "@Devgelo",
+  twitter: "",
   ogImage: ogImage,
   socialLinks: {
-    twitter: "https://twitter.com",
+    twitter: "",
     github: "https://github.com/RodrigoAmorin",
-    discord: "https://discord.com",
+    discord: "",
   },
   navLinks: [
     { text: "Home", href: "/" },
@@ -21,6 +21,5 @@ export const siteConfig = {
     { text: "Servicios", href: "/servicios" },
     { text: "Blog", href: "/blog" },
     { text: "Contacto", href: "/contacto" },
-    { text: "Recursos", href: "/widgets" },
   ],
 };

@@ -8,8 +8,6 @@ interface Props {
   isDark?: boolean;
   classes?: Record<string, string>;
   bg?: string;
-
-  /** cuántas veces repetimos el set dentro de la pista */
   repeatSets?: 2 | 3 | 4 | 5;
 }
 
@@ -23,38 +21,30 @@ const {
   bg = await Astro.slots.render("bg"),
 } = Astro.props as Props;
 
-// ✅ glob literal (Vite/Astro)
 const toolSvgs = import.meta.glob("/src/assets/images/herramientas/*.svg", {
   eager: true,
-  query: "?url",
-  import: "default",
+  as: "url",
 });
 
-const tools = Object.values(toolSvgs) as string[];
-
-// orden estable
-tools.sort((a, b) => a.localeCompare(b, "en"));
+const tools = (Object.values(toolSvgs) as string[]).sort((a, b) =>
+  a.localeCompare(b, "en"),
+);
 
 const mid = Math.ceil(tools.length / 2);
 const rowA = tools.slice(0, mid);
 const rowB = tools.slice(mid);
 
-// repetimos N veces (por defecto 4)
 const repeat = (arr: string[], times: number) =>
   Array.from({ length: times }, () => arr).flat();
 
 const rowARep = repeat(rowA, repeatSets);
 const rowBRep = repeat(rowB, repeatSets);
-
-// para loop perfecto: movemos exactamente 1 set.
-// Si hay 4 sets => 1 set = 25% del total.
-const shiftPercent = -(100 / repeatSets); // -25 si repeatSets=4
+const shiftPercent = -(100 / repeatSets);
 ---
 
-<WidgetWrapper id={id} isDark={isDark} bg={bg} classes={classes}>
+<WidgetWrapper id={id} isDark={isDark} bg={bg} classes={classes} animate={false}>
   <section class="mx-auto max-w-6xl">
     <div class="wrap" style={`--dur:${speedSeconds}s; --shift:${shiftPercent}%;`}>
-      <!-- FILA 1 -->
       <div class={`row ${dense ? "dense" : ""}`} aria-label="Herramientas y software que usamos">
         <div class="track" role="list">
           {rowARep.map((src) => (
@@ -65,7 +55,6 @@ const shiftPercent = -(100 / repeatSets); // -25 si repeatSets=4
         </div>
       </div>
 
-      <!-- FILA 2 -->
       {rowB.length > 0 && (
         <div class={`row reverse ${dense ? "dense" : ""}`} aria-label="Herramientas y software que usamos">
           <div class="track" role="list">
@@ -82,124 +71,105 @@ const shiftPercent = -(100 / repeatSets); // -25 si repeatSets=4
 </WidgetWrapper>
 
 <style>
-  .wrap{
-    display:grid;
+  .wrap {
+    display: grid;
     gap: 16px;
     padding: 6px 0 18px;
   }
 
-  /* ✅ SIN “píldora”/contenedor visible: nada de background ni border acá */
-  .row{
+  .row {
     position: relative;
     overflow: hidden;
     padding: 8px 0;
-    border-radius: 999px;
-
-    /* ✅ Fade PRO: máscara real (no overlay negro/blanco).
-       Left/Right suave, y un toque arriba/abajo para que no “corte duro”. */
-    -webkit-mask-image:
-      linear-gradient(to right,
-        transparent 0%,
-        #000 10%,
-        #000 90%,
-        transparent 100%
-      ),
-      linear-gradient(to bottom,
-        transparent 0%,
-        #000 30%,
-        #000 70%,
-        transparent 100%
-      );
-    -webkit-mask-composite: source-in;
-
-    mask-image:
-      linear-gradient(to right,
-        transparent 0%,
-        #000 10%,
-        #000 90%,
-        transparent 100%
-      ),
-      linear-gradient(to bottom,
-        transparent 0%,
-        #000 30%,
-        #000 70%,
-        transparent 100%
-      );
-    mask-composite: intersect;
   }
 
-  .track{
-    display:flex;
+  .track {
+    display: flex;
     width: max-content;
-    align-items:center;
+    align-items: center;
     gap: 14px;
     will-change: transform;
     animation: scroll var(--dur) linear infinite;
   }
 
-  .reverse .track{ animation-direction: reverse; }
-  .row:hover .track{ animation-play-state: paused; }
+  .reverse .track {
+    animation-direction: reverse;
+  }
 
-  /* ✅ Logo tiles: unifican todos los logos sin que “se note” la fila */
-  .logo{
+  .row:hover .track {
+    animation-play-state: paused;
+  }
+
+  .logo {
     width: 64px;
     height: 64px;
     border-radius: 18px;
     flex: 0 0 auto;
-
-    /* usando tus variables (se adapta solo a dark/light) */
     background: hsl(var(--card) / 0.55);
     border: 1px solid hsl(var(--border) / 0.7);
-
-    /* más “pro”: luz suave, no caja pesada */
     box-shadow:
-      0 10px 30px rgba(0,0,0,.18),
-      inset 0 1px 0 rgba(255,255,255,.06);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
+      0 10px 30px rgba(0, 0, 0, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 10px;
   }
 
-  .dense .logo{
+  .dense .logo {
     width: 56px;
     height: 56px;
     border-radius: 16px;
     padding: 9px;
   }
 
-  .logo img{
+  .logo img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    display:block;
-    opacity: .92;
+    display: block;
+    opacity: 0.92;
     filter: grayscale(1) brightness(1.25);
-    transition: transform .25s ease, filter .25s ease, opacity .25s ease;
+    transition:
+      transform 0.25s ease,
+      filter 0.25s ease,
+      opacity 0.25s ease;
   }
 
-  .logo:hover img{
+  .logo:hover img {
     opacity: 1;
     filter: none;
     transform: translateY(-1px);
   }
 
-  /* ✅ Loop perfecto:
-     renderizamos 4 sets y movemos EXACTAMENTE 1 set => --shift = -25% */
-  @keyframes scroll{
-    from{ transform: translateX(0); }
-    to{ transform: translateX(var(--shift)); }
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(var(--shift));
+    }
   }
 
-  /* Accesibilidad: si el usuario prefiere menos movimiento */
-  @media (prefers-reduced-motion: reduce){
-    .track{ animation: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .track {
+      animation: none;
+    }
   }
 
-  @media (max-width: 640px){
-    .logo{ width: 56px; height: 56px; border-radius: 16px; }
-    .track{ gap: 12px; }
-    .row{ padding: 8px 0; }
+  @media (max-width: 640px) {
+    .logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+    }
+
+    .track {
+      gap: 12px;
+    }
+
+    .row {
+      padding: 8px 0;
+    }
   }
 </style>
